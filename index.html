@@ -1,98 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Grade Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Grade Report</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f7fa;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
       color: #333;
     }
     .container {
-      max-width: 960px;
-      margin: 40px auto;
+      max-width: 800px;
+      margin: auto;
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
     }
     .header {
-      background: #004f94;
-      color: white;
-      padding: 30px 20px;
       text-align: center;
+      margin-bottom: 20px;
     }
     .header h1 {
-      margin: 0;
-      font-size: 2rem;
-      letter-spacing: 1px;
+      color: #0055a5;
+      margin-bottom: 5px;
+    }
+    .header h2 {
+      color: #003366;
+      margin-top: 0;
+      font-weight: bold;
     }
     .dropdown {
-      background: #eef3f9;
-      padding: 20px;
+      margin: 20px 0;
       text-align: center;
     }
-    select {
-      padding: 10px 20px;
+    .dropdown select {
       font-size: 1.1em;
-      font-weight: bold;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 10px;
+      width: 100%;
+      max-width: 300px;
       background-color: #0055a5;
       color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
       text-align-last: center;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 0;
+      margin: 20px 0;
     }
     th, td {
-      padding: 14px;
+      border: 1px solid #ccc;
+      padding: 12px;
       text-align: center;
-      border: 1px solid #d9e1ea;
     }
     th {
-      background: #0055a5;
+      background-color: #0055a5;
       color: white;
+      font-weight: bold;
     }
     input[type="number"] {
       width: 60px;
+      text-align: center;
       padding: 5px;
-      font-size: 1em;
-      text-align: center;
+      border: 1px solid #aaa;
+      border-radius: 4px;
     }
-    .summary {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 20px;
-      background: #175fa4;
+    .footer-table {
+      width: 100%;
+      margin: 20px 0;
+    }
+    .footer-table td {
+      background-color: #0055a5;
       color: white;
-    }
-    .summary div {
-      flex: 1 1 33%;
-      text-align: center;
+      font-weight: bold;
       font-size: 1.1em;
-      margin: 10px 0;
+      text-align: center;
+      padding: 12px;
     }
-    .footer {
+    .credits {
       text-align: center;
       padding: 10px;
-      background: #003366;
-      color: white;
+      font-size: 0.95em;
+      color: #003366;
+      border-top: 1px solid #ccc;
+      margin-top: 20px;
     }
-    .footer p {
-      margin: 4px;
-      font-size: 0.9em;
-    }
-    @media (max-width: 600px) {
-      .summary div {
-        flex: 1 1 100%;
-      }
+    .credits small {
+      display: block;
+      color: #555;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -100,82 +102,122 @@
   <div class="container">
     <div class="header">
       <h1>YEUNGJIN UNIVERSITY</h1>
-      <p>IT SMART FACTORY CONVERGENCE | 3RD SEMESTER</p>
+      <h2>IT SMARTFACTORY CONVERGENCE | 3rd SEMESTER</h2>
     </div>
+
     <div class="dropdown">
       <select id="studentSelect">
-        <option>SELECT STUDENT</option>
         <option>AVILA, RAMIL</option>
         <option>BARSALOTE, ROBERT GLEN</option>
         <option>CANAPI, RICHARD</option>
+        <option>CAPULONG, MICHAEL</option>
+        <option>DIONEDA, JOSELITO</option>
+        <option>ECHALICO, FIDEL</option>
+        <option>EVANGELISTA, DIANA MAE</option>
+        <option>FORTIN, JOSE</option>
+        <option>LUMANOG, JERRY</option>
+        <option>ASRAR, KALEEM</option>
+        <option>MACADANGDANG, REYMART</option>
+        <option>MARTIN, JEFFREY</option>
+        <option>MERIN, RONNEL</option>
+        <option>NIEVES, DIONEL</option>
+        <option>NUDAS, FRANCISCO</option>
+        <option>OSUYOS, JOHN IVANN RAY</option>
+        <option>PANICAN, RENATO</option>
+        <option>PUNZALAN, AARON OLIVER</option>
+        <option>QUILALA, MARK JOSEPH</option>
+        <option>RILLERA, MARLYN</option>
+        <option>SACCUAN, CRISELDA</option>
+        <option>SALACUP, RICHARD</option>
+        <option>SALARSON, RHENE</option>
+        <option>SARMIENTO, ROBIE</option>
+        <option>TIN, MAUNG MAUNG OO</option>
+        <option>TINGSON, BRYAN JOHN</option>
+        <option>UMALI, CHERUBIC</option>
+        <option>VALERIANO, JHON RICK</option>
+        <option>VISTAN, CHRISTOPHER</option>
       </select>
     </div>
+
     <table>
       <thead>
         <tr>
-          <th>Subject</th>
-          <th>Units</th>
-          <th>Score</th>
-          <th>Grade</th>
-          <th>GPA</th>
+          <th>교과목</th>
+          <th>학점</th>
+          <th>점수</th>
+          <th>등급</th>
+          <th>평점</th>
         </tr>
       </thead>
       <tbody id="gradeTable">
-        <tr><td>CCNA</td><td>5</td><td><input type="number" min="0" max="100" data-units="5" /></td><td></td><td></td></tr>
-        <tr><td>AI Coding</td><td>3</td><td><input type="number" min="0" max="100" data-units="3" /></td><td></td><td></td></tr>
-        <tr><td>Comms Korean</td><td>2</td><td><input type="number" min="0" max="100" data-units="2" /></td><td></td><td></td></tr>
+        <tr><td>컴퓨터 활용 (온라인)</td><td>2</td><td><input type="number" min="0" max="100" data-units="2"></td><td></td><td></td></tr>
+        <tr><td>AI코딩기초</td><td>5</td><td><input type="number" min="0" max="100" data-units="5"></td><td></td><td></td></tr>
+        <tr><td>CCNA</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
+        <tr><td>전공한국어회화(I)</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
+        <tr><td>전공한국어중급</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
       </tbody>
     </table>
-    <div class="summary">
-      <div>평균평점 (Average Rating): <span id="avgRating">-</span></div>
-      <div>점수평균 (Average Score): <span id="avgScore">-</span></div>
-      <div>점수계 (Total Score): <span id="totalScore">-</span></div>
-    </div>
-    <div class="footer">
-      <p>Created by: Canapi, Richard</p>
-      <p>IT SMART FACTORY CONVERGENCE | BATCH 1</p>
+
+    <table class="footer-table">
+      <tr><td>평균평점 (Average Rating)</td><td id="avgRating">-</td></tr>
+      <tr><td>점수평균 (Average Score)</td><td id="avgScore">-</td></tr>
+      <tr><td>점수계 (Total Score)</td><td id="totalScore">-</td></tr>
+    </table>
+
+    <div class="credits">
+      Created by: Canapi, Richard
+      <small>IT SMART FACTORY CONVERGENCE | BATCH 1</small>
     </div>
   </div>
+
   <script>
     const gradeTable = document.getElementById("gradeTable");
     const ratingMap = [
       { min: 95, grade: 'A+', point: 4.5 },
-      { min: 90, grade: 'A0', point: 4.0 },
+      { min: 90, grade: 'Ao', point: 4.0 },
       { min: 85, grade: 'B+', point: 3.5 },
-      { min: 80, grade: 'B0', point: 3.0 },
+      { min: 80, grade: 'Bo', point: 3.0 },
       { min: 75, grade: 'C+', point: 2.5 },
-      { min: 70, grade: 'C0', point: 2.0 },
+      { min: 70, grade: 'Co', point: 2.0 },
       { min: 65, grade: 'D+', point: 1.5 },
-      { min: 60, grade: 'D0', point: 1.0 },
+      { min: 60, grade: 'Do', point: 1.0 },
       { min: 0,  grade: 'F',  point: 0.0 }
     ];
 
     gradeTable.addEventListener("input", () => {
-      let totalUnits = 0, totalPoints = 0, totalScore = 0, count = 0;
-      gradeTable.querySelectorAll("tr").forEach(row => {
+      let totalUnits = 0, totalWeightedPoints = 0, totalRawScore = 0, count = 0;
+      const rows = gradeTable.querySelectorAll("tr");
+
+      rows.forEach(row => {
         const input = row.querySelector("input");
-        const units = parseInt(input.dataset.units);
-        const gradeCell = row.children[3];
-        const gpaCell = row.children[4];
-        const score = parseFloat(input.value);
-        if (!isNaN(score)) {
-          count++;
-          totalScore += score;
-          const rating = ratingMap.find(r => score >= r.min);
-          gradeCell.textContent = rating.grade;
-          const gpa = rating.point * units;
-          gpaCell.textContent = gpa.toFixed(1);
-          totalPoints += gpa;
-          totalUnits += units;
-        } else {
-          gradeCell.textContent = "";
-          gpaCell.textContent = "";
+        if (input) {
+          const score = parseFloat(input.value);
+          const units = parseFloat(input.dataset.units);
+          const gradeCell = row.children[3];
+          const pointCell = row.children[4];
+
+          if (!isNaN(score)) {
+            totalRawScore += score;
+            count++;
+            totalUnits += units;
+            const rating = ratingMap.find(r => score >= r.min);
+            if (rating) {
+              gradeCell.innerText = rating.grade;
+              pointCell.innerText = (rating.point * units).toFixed(1);
+              totalWeightedPoints += rating.point * units;
+            }
+          } else {
+            gradeCell.innerText = "";
+            pointCell.innerText = "";
+          }
         }
       });
-      document.getElementById("avgScore").textContent = count ? (totalScore / count).toFixed(2) : "-";
-      document.getElementById("totalScore").textContent = totalScore ? totalScore.toFixed(0) : "-";
-      document.getElementById("avgRating").textContent = totalUnits ? (totalPoints / totalUnits).toFixed(2) : "-";
+
+      document.getElementById("avgRating").innerText = totalUnits ? (totalWeightedPoints / totalUnits).toFixed(2) : "-";
+      document.getElementById("avgScore").innerText = count ? (totalRawScore / count).toFixed(2) : "-";
+      document.getElementById("totalScore").innerText = count ? totalRawScore.toFixed(0) : "-";
     });
   </script>
 </body>
 </html>
+
