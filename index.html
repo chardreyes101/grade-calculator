@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KWDQF9C5D6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KWDQF9C5D6');
-</script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Grade Report</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWDQF9C5D6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KWDQF9C5D6');
+  </script>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -195,7 +193,9 @@
     ];
 
     gradeTable.addEventListener("input", () => {
-      let totalUnits = 0, totalWeightedPoints = 0, totalRawScore = 0, count = 0;
+      let totalUnits = 0;
+      let totalWeightedScore = 0;
+      let totalWeightedPoints = 0;
       const rows = gradeTable.querySelectorAll("tr");
 
       rows.forEach(row => {
@@ -207,14 +207,13 @@
           const pointCell = row.children[4];
 
           if (!isNaN(score)) {
-            totalRawScore += score;
-            count++;
-            totalUnits += units;
             const rating = ratingMap.find(r => score >= r.min);
             if (rating) {
               gradeCell.innerText = rating.grade;
               pointCell.innerText = (rating.point * units).toFixed(1);
+              totalWeightedScore += score * units;
               totalWeightedPoints += rating.point * units;
+              totalUnits += units;
             }
           } else {
             gradeCell.innerText = "";
@@ -223,12 +222,17 @@
         }
       });
 
-      document.getElementById("avgRating").innerText = totalUnits ? (totalWeightedPoints / totalUnits).toFixed(2) : "-";
-      document.getElementById("avgScore").innerText = count ? (totalRawScore / count).toFixed(2) : "-";
-      document.getElementById("totalScore").innerText = count ? totalRawScore.toFixed(0) : "-";
+      const avgScore = totalUnits ? (totalWeightedScore / totalUnits).toFixed(2) : "-";
+      const avgRating = totalUnits ? (totalWeightedPoints / totalUnits).toFixed(2) : "-";
+      const totalScore = totalUnits ? (avgScore * totalUnits).toFixed(0) : "-";
+
+      document.getElementById("avgScore").innerText = avgScore;
+      document.getElementById("avgRating").innerText = avgRating;
+      document.getElementById("totalScore").innerText = totalScore;
     });
   </script>
 </body>
 </html>
+
 
 
