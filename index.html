@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Interactive Grade Report</title>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWDQF9C5D6"></script>
   <script>
@@ -12,22 +13,25 @@
     gtag('js', new Date());
     gtag('config', 'G-KWDQF9C5D6');
   </script>
+
+  <!-- html2pdf.js for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
   <style>
     :root {
       --primary: #0055a5;
       --dark: #003366;
       --light-bg: #f9f9f9;
       --accent: #0073e6;
+      --text: #333;
     }
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--light-bg);
-      color: #333;
+      color: var(--text);
     }
     .container {
       position: relative;
@@ -39,174 +43,98 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       overflow: hidden;
     }
-    /* animated watermark inside container */
     .container::before {
       content: "";
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px; height: 300px;
-      background: url('assets/SchoolLogo.png') no-repeat center center;
-      background-size: 300px;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      width:300px; height:300px;
+      background: url('assets/SchoolLogo.png') no-repeat center/contain;
       opacity: 0.04;
-      z-index: 0;
       pointer-events: none;
-      animation: fadeIn 6s ease-in-out infinite alternate;
+      animation: pulse 6s ease-in-out infinite alternate;
     }
-    @keyframes fadeIn {
-      from { opacity: 0.02; }
-      to   { opacity: 0.06; }
+    @keyframes pulse {
+      from { opacity: 0.02; } to { opacity: 0.06; }
     }
     .header {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index:1;
       background: linear-gradient(135deg, var(--primary), var(--dark));
-      padding: 20px;
-      text-align: center;
+      padding: 20px; text-align: center;
     }
     .header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin:0; font-size:2rem; color:#fff;
+      text-transform:uppercase; letter-spacing:1px;
     }
     .header h2 {
-      margin: 5px 0 0;
-      font-size: 1rem;
-      color: #e0eaff;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin:5px 0 0; font-size:1rem; color:#e0eaff;
+      font-weight:600; text-transform:uppercase; letter-spacing:0.5px;
     }
     .dropdown {
-      position: relative;
-      z-index: 1;
-      margin: 20px auto;
-      text-align: center;
+      position: relative; z-index:1;
+      margin: 20px auto; text-align: center;
     }
     .dropdown select {
-      font-size: 1.1em;
-      padding: 12px;
-      width: 90%;
-      max-width: 350px;
-      background-color: var(--primary);
-      color: #fff;
-      border: 2px solid var(--accent);
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: border-color 0.3s, background-color 0.3s;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      text-align-last: center;
+      font-size:1.1em; padding:12px; width:90%; max-width:350px;
+      background: var(--primary); color:#fff; border:2px solid var(--accent);
+      border-radius:6px; cursor:pointer; appearance:none; text-align-last:center;
+      transition: background 0.3s, border-color 0.3s;
     }
     .dropdown select:focus {
-      background-color: var(--accent);
-      outline: none;
-      border-color: var(--dark);
+      background: var(--accent); outline:none; border-color: var(--dark);
     }
     .table-wrapper {
-      overflow-x: auto;
-      position: relative;
-      z-index: 1;
+      overflow-x:auto; position:relative; z-index:1;
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
+      width:100%; border-collapse:collapse; margin:20px 0;
     }
     th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
+      border:1px solid #ddd; padding:12px; text-align:center;
     }
     th {
-      background-color: var(--primary);
-      color: #fff;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      background: var(--primary); color:#fff; font-weight:600; letter-spacing:0.5px;
     }
-    tbody tr:nth-child(odd) {
-      background: #fafafa;
-    }
+    tbody tr:nth-child(odd) { background:#fafafa; }
     input[type="number"] {
-      width: 60px;
-      padding: 6px;
-      border: 1px solid #bbb;
-      border-radius: 4px;
-      text-align: center;
-      transition: border-color 0.2s;
+      width:60px; padding:6px; border:1px solid #bbb; border-radius:4px;
+      text-align:center; transition: border-color 0.2s;
     }
     input[type="number"]:focus {
-      border-color: var(--primary);
-      outline: none;
+      border-color: var(--primary); outline:none;
     }
     .footer-table {
-      width: 100%;
-      margin: 20px 0;
-      border-radius: 0 0 8px 8px;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
+      width:100%; margin:20px 0; border-radius:0 0 8px 8px; overflow:hidden;
+      position:relative; z-index:1;
     }
     .footer-table td {
-      background-color: var(--dark);
-      color: #fff;
-      font-weight: 600;
-      padding: 14px;
-      font-size: 1rem;
+      background: var(--dark); color:#fff; font-weight:600; padding:14px; font-size:1rem;
     }
-    .footer-table tr + tr td {
-      border-top: 1px solid #555;
+    .export-btn {
+      display:block; margin:10px auto; padding:10px 20px;
+      background: var(--accent); color:#fff; border:none; border-radius:6px;
+      font-size:1em; cursor:pointer; transition: background 0.3s;
     }
+    .export-btn:hover { background: var(--dark); }
     .credits {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-      color: #444;
-      border-top: 1px solid #ddd;
-      background: #fff;
+      position:relative; z-index:1;
+      text-align:center; padding:15px; font-size:0.9em; color:#444;
+      border-top:1px solid #ddd; background:#fff;
     }
-    .credits small {
-      display: block;
-      margin-top: 4px;
-      color: #666;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      .header h1 {
-        font-size: 1.5rem;
-      }
-      .header h2 {
-        font-size: 0.9rem;
-      }
-      .dropdown select {
-        padding: 10px;
-        width: 100%;
-      }
-      .container::before {
-        width: 150px;
-        height: 150px;
-        background-size: 150px;
-      }
-      th, td {
-        padding: 8px;
-      }
-      input[type="number"] {
-        width: 50px;
-        padding: 4px;
-      }
+    .credits small { display:block; margin-top:4px; color:#666; }
+    @media (max-width:600px) {
+      body { padding:10px; }
+      .header h1 { font-size:1.5rem; }
+      .header h2 { font-size:0.9rem; }
+      .dropdown select { padding:10px; width:100%; }
+      .container::before { width:150px; height:150px; }
+      th, td { padding:8px; }
+      input[type="number"] { width:50px; padding:4px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="printable">
     <div class="header">
       <h1>YEUNGJIN UNIVERSITY</h1>
       <h2>IT SMARTFACTORY CONVERGENCE | 3rd SEMESTER</h2>
@@ -214,26 +142,49 @@
     <div class="dropdown">
       <select id="studentSelect">
         <option>AVILA, RAMIL</option>
-        <!-- ... other options ... -->
+        <option>BARSALOTE, ROBERT GLEN</option>
+        <option>CANAPI, RICHARD</option>
+        <option>CAPULONG, MICHAEL</option>
+        <option>DIONEDA, JOSELITO</option>
+        <option>ECHALICO, FIDEL</option>
+        <option>EVANGELISTA, DIANA MAE</option>
+        <option>FORTIN, JOSE</option>
+        <option>LUMANOG, JERRY</option>
+        <option>ASRAR, KALEEM</option>
+        <option>MACADANGDANG, REYMART</option>
+        <option>MARTIN, JEFFREY</option>
+        <option>MERIN, RONNEL</option>
+        <option>NIEVES, DIONEL</option>
+        <option>NUDAS, FRANCISCO</option>
+        <option>OSUYOS, JOHN IVANN RAY</option>
+        <option>PANICAN, RENATO</option>
+        <option>PUNZALAN, AARON OLIVER</option>
+        <option>QUILALA, MARK JOSEPH</option>
+        <option>RILLERA, MARLYN</option>
+        <option>SACCUAN, CRISELDA</option>
+        <option>SALACUP, RICHARD</option>
+        <option>SALARSON, RHENE</option>
+        <option>SARMIENTO, ROBIE</option>
+        <option>TIN, MAUNG MAUNG OO</option>
+        <option>TINGSON, BRYAN JOHN</option>
+        <option>UMALI, CHERUBIC</option>
+        <option>VALERIANO, JHON RICK</option>
+        <option>VISTAN, CHRISTOPHER</option>
       </select>
     </div>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
-            <th>교과목</th>
-            <th>학점</th>
-            <th>점수</th>
-            <th>등급</th>
-            <th>평점</th>
+            <th>교과목</th><th>학점</th><th>점수</th><th>등급</th><th>평점</th>
           </tr>
         </thead>
         <tbody id="gradeTable">
-          <tr> <td>컴퓨터 활용 (온라인)</td><td>2</td><td><input type="number" min="0" max="100" data-units="2"></td><td></td><td></td> </tr>
-          <tr> <td>AI코딩기초</td>        <td>5</td><td><input type="number" min="0" max="100" data-units="5"></td><td></td><td></td> </tr>
-          <tr> <td>CCNA</td>               <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
-          <tr> <td>전공한국어회화(I)</td>    <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
-          <tr> <td>전공한국어중급</td>        <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
+          <tr><td>컴퓨터 활용 (온라인)</td><td>2</td><td><input type="number" min="0" max="100" data-units="2"></td><td></td><td></td></tr>
+          <tr><td>AI코딩기초</td><td>5</td><td><input type="number" min="0" max="100" data-units="5"></td><td></td><td></td></tr>
+          <tr><td>CCNA</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
+          <tr><td>전공한국어회화(I)</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
+          <tr><td>전공한국어중급</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>
@@ -242,52 +193,63 @@
       <tr><td>점수평균 (Average Score)</td><td id="avgScore">-</td></tr>
       <tr><td>점수계 (Total Score)</td><td id="totalScore">-</td></tr>
     </table>
+    <button class="export-btn" id="exportPdf">Export to PDF</button>
     <div class="credits">
       Created by: Canapi, Richard
       <small>IT SMART FACTORY CONVERGENCE | BATCH 1</small>
     </div>
   </div>
   <script>
+    // grade calculations
     const gradeTable = document.getElementById("gradeTable");
     const ratingMap = [
-      { min: 95, grade: 'A+', point: 4.5 },
-      { min: 90, grade: 'Ao', point: 4.0 },
-      { min: 85, grade: 'B+', point: 3.5 },
-      { min: 80, grade: 'Bo', point: 3.0 },
-      { min: 75, grade: 'C+', point: 2.5 },
-      { min: 70, grade: 'Co', point: 2.0 },
-      { min: 65, grade: 'D+', point: 1.5 },
-      { min: 60, grade: 'Do', point: 1.0 },
-      { min: 0,  grade: 'F',  point: 0.0 }
+      {min:95, grade:'A+', point:4.5}, {min:90, grade:'Ao', point:4.0},
+      {min:85, grade:'B+', point:3.5}, {min:80, grade:'Bo', point:3.0},
+      {min:75, grade:'C+', point:2.5}, {min:70, grade:'Co', point:2.0},
+      {min:65, grade:'D+', point:1.5}, {min:60, grade:'Do', point:1.0},
+      {min:0, grade:'F', point:0.0}
     ];
     gradeTable.addEventListener("input", () => {
-      let totalUnits = 0, totalWeightedScore = 0, totalWeightedPoints = 0;
-      gradeTable.querySelectorAll("tr").forEach(row => {
-        const input = row.querySelector("input");
-        if (input) {
-          const score = parseFloat(input.value);
-          const units = parseFloat(input.dataset.units);
-          const gradeCell = row.children[3];
-          const pointCell = row.children[4];
-          if (!isNaN(score)) {
-            const rating = ratingMap.find(r => score >= r.min);
-            gradeCell.innerText = rating.grade;
-            pointCell.innerText = (rating.point * units).toFixed(1);
-            totalWeightedScore += score * units;
-            totalWeightedPoints += rating.point * units;
-            totalUnits += units;
-          } else {
-            gradeCell.innerText = pointCell.innerText = "";
-          }
+      let totalUnits=0, totalWeightedScore=0, totalWeightedPoints=0;
+      gradeTable.querySelectorAll("tr").forEach(row=>{
+        const inp=row.querySelector("input");
+        if(!inp) return;
+        const score=parseFloat(inp.value),
+              units=parseFloat(inp.dataset.units),
+              gradeCell=row.children[3],
+              ptCell=row.children[4];
+        if(!isNaN(score)){
+          const r=ratingMap.find(r=>score>=r.min);
+          gradeCell.innerText=r.grade;
+          ptCell.innerText=(r.point*units).toFixed(1);
+          totalUnits+=units;
+          totalWeightedScore+=score*units;
+          totalWeightedPoints+=r.point*units;
+        } else {
+          gradeCell.innerText=ptCell.innerText="";
         }
       });
-      document.getElementById("avgScore").innerText = totalUnits ? (totalWeightedScore/totalUnits).toFixed(2) : "-";
-      document.getElementById("avgRating").innerText = totalUnits ? (totalWeightedPoints/totalUnits).toFixed(2) : "-";
-      document.getElementById("totalScore").innerText = totalUnits ? Math.round(totalWeightedScore) : "-";
+      document.getElementById("avgScore").innerText= totalUnits ? (totalWeightedScore/totalUnits).toFixed(2) : "-";
+      document.getElementById("avgRating").innerText= totalUnits ? (totalWeightedPoints/totalUnits).toFixed(2) : "-";
+      document.getElementById("totalScore").innerText= totalUnits ? Math.round(totalWeightedScore) : "-";
+    });
+
+    // PDF export
+    document.getElementById("exportPdf").addEventListener("click", ()=>{
+      const element=document.getElementById("printable");
+      const student=document.getElementById("studentSelect").value.replace(/\s|,/g,"_");
+      html2pdf().set({
+        margin:0.5,
+        filename:`${student}_GradeReport.pdf`,
+        image:{type:"jpeg",quality:0.98},
+        html2canvas:{scale:2},
+        jsPDF:{unit:"in",format:"letter",orientation:"portrait"}
+      }).from(element).save();
     });
   </script>
 </body>
 </html>
+
 
 
 
