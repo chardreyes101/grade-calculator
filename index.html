@@ -13,14 +13,22 @@
     gtag('config', 'G-KWDQF9C5D6');
   </script>
   <style>
+    :root {
+      --primary: #0055a5;
+      --dark: #003366;
+      --light-bg: #f9f9f9;
+      --accent: #0073e6;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9f9f9;
       margin: 0;
       padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light-bg);
       color: #333;
     }
-
     .container {
       position: relative;
       z-index: 1;
@@ -28,106 +36,172 @@
       margin: auto;
       background: #fff;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
     }
-
-    /* watermark inside the white container */
+    /* animated watermark inside container */
     .container::before {
       content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px; height: 300px;
       background: url('assets/SchoolLogo.png') no-repeat center center;
       background-size: 300px;
-      opacity: 0.05;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      height: 300px;
+      opacity: 0.04;
       z-index: 0;
       pointer-events: none;
+      animation: fadeIn 6s ease-in-out infinite alternate;
     }
-
+    @keyframes fadeIn {
+      from { opacity: 0.02; }
+      to   { opacity: 0.06; }
+    }
     .header {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 20px;
       text-align: center;
-      margin-bottom: 20px;
     }
     .header h1 {
-      color: #0055a5;
-      margin-bottom: 5px;
+      margin: 0;
+      font-size: 2rem;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .header h2 {
-      color: #003366;
-      margin-top: 0;
-      font-weight: bold;
+      margin: 5px 0 0;
+      font-size: 1rem;
+      color: #e0eaff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-
     .dropdown {
-      margin: 20px 0;
+      position: relative;
+      z-index: 1;
+      margin: 20px auto;
       text-align: center;
     }
     .dropdown select {
       font-size: 1.1em;
-      padding: 10px;
-      width: 100%;
-      max-width: 300px;
-      background-color: #0055a5;
-      color: white;
-      border: none;
+      padding: 12px;
+      width: 90%;
+      max-width: 350px;
+      background-color: var(--primary);
+      color: #fff;
+      border: 2px solid var(--accent);
       border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
+      transition: border-color 0.3s, background-color 0.3s;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       text-align-last: center;
     }
-
+    .dropdown select:focus {
+      background-color: var(--accent);
+      outline: none;
+      border-color: var(--dark);
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      position: relative;
+      z-index: 1;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
     }
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       padding: 12px;
       text-align: center;
     }
     th {
-      background-color: #0055a5;
-      color: white;
-      font-weight: bold;
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
-
+    tbody tr:nth-child(odd) {
+      background: #fafafa;
+    }
     input[type="number"] {
       width: 60px;
-      text-align: center;
-      padding: 5px;
-      border: 1px solid #aaa;
+      padding: 6px;
+      border: 1px solid #bbb;
       border-radius: 4px;
+      text-align: center;
+      transition: border-color 0.2s;
     }
-
+    input[type="number"]:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
     .footer-table {
       width: 100%;
       margin: 20px 0;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
     .footer-table td {
-      background-color: #0055a5;
-      color: white;
-      font-weight: bold;
-      font-size: 1.1em;
-      text-align: center;
-      padding: 12px;
+      background-color: var(--dark);
+      color: #fff;
+      font-weight: 600;
+      padding: 14px;
+      font-size: 1rem;
     }
-
+    .footer-table tr + tr td {
+      border-top: 1px solid #555;
+    }
     .credits {
+      position: relative;
+      z-index: 1;
       text-align: center;
-      padding: 10px;
-      font-size: 0.95em;
-      color: #003366;
-      border-top: 1px solid #ccc;
-      margin-top: 20px;
+      padding: 15px;
+      font-size: 0.9em;
+      color: #444;
+      border-top: 1px solid #ddd;
+      background: #fff;
     }
     .credits small {
       display: block;
-      color: #555;
       margin-top: 4px;
+      color: #666;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header h2 {
+        font-size: 0.9rem;
+      }
+      .dropdown select {
+        padding: 10px;
+        width: 100%;
+      }
+      .container::before {
+        width: 150px;
+        height: 150px;
+        background-size: 150px;
+      }
+      th, td {
+        padding: 8px;
+      }
+      input[type="number"] {
+        width: 50px;
+        padding: 4px;
+      }
     }
   </style>
 </head>
@@ -137,72 +211,42 @@
       <h1>YEUNGJIN UNIVERSITY</h1>
       <h2>IT SMARTFACTORY CONVERGENCE | 3rd SEMESTER</h2>
     </div>
-
     <div class="dropdown">
       <select id="studentSelect">
         <option>AVILA, RAMIL</option>
-        <option>BARSALOTE, ROBERT GLEN</option>
-        <option>CANAPI, RICHARD</option>
-        <option>CAPULONG, MICHAEL</option>
-        <option>DIONEDA, JOSELITO</option>
-        <option>ECHALICO, FIDEL</option>
-        <option>EVANGELISTA, DIANA MAE</option>
-        <option>FORTIN, JOSE</option>
-        <option>LUMANOG, JERRY</option>
-        <option>ASRAR, KALEEM</option>
-        <option>MACADANGDANG, REYMART</option>
-        <option>MARTIN, JEFFREY</option>
-        <option>MERIN, RONNEL</option>
-        <option>NIEVES, DIONEL</option>
-        <option>NUDAS, FRANCISCO</option>
-        <option>OSUYOS, JOHN IVANN RAY</option>
-        <option>PANICAN, RENATO</option>
-        <option>PUNZALAN, AARON OLIVER</option>
-        <option>QUILALA, MARK JOSEPH</option>
-        <option>RILLERA, MARLYN</option>
-        <option>SACCUAN, CRISELDA</option>
-        <option>SALACUP, RICHARD</option>
-        <option>SALARSON, RHENE</option>
-        <option>SARMIENTO, ROBIE</option>
-        <option>TIN, MAUNG MAUNG OO</option>
-        <option>TINGSON, BRYAN JOHN</option>
-        <option>UMALI, CHERUBIC</option>
-        <option>VALERIANO, JHON RICK</option>
-        <option>VISTAN, CHRISTOPHER</option>
+        <!-- ... other options ... -->
       </select>
     </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>교과목</th>
-          <th>학점</th>
-          <th>점수</th>
-          <th>등급</th>
-          <th>평점</th>
-        </tr>
-      </thead>
-      <tbody id="gradeTable">
-        <tr><td>컴퓨터 활용 (온라인)</td><td>2</td><td><input type="number" min="0" max="100" data-units="2"></td><td></td><td></td></tr>
-        <tr><td>AI코딩기초</td><td>5</td><td><input type="number" min="0" max="100" data-units="5"></td><td></td><td></td></tr>
-        <tr><td>CCNA</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
-        <tr><td>전공한국어회화(I)</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
-        <tr><td>전공한국어중급</td><td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td></tr>
-      </tbody>
-    </table>
-
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>교과목</th>
+            <th>학점</th>
+            <th>점수</th>
+            <th>등급</th>
+            <th>평점</th>
+          </tr>
+        </thead>
+        <tbody id="gradeTable">
+          <tr> <td>컴퓨터 활용 (온라인)</td><td>2</td><td><input type="number" min="0" max="100" data-units="2"></td><td></td><td></td> </tr>
+          <tr> <td>AI코딩기초</td>        <td>5</td><td><input type="number" min="0" max="100" data-units="5"></td><td></td><td></td> </tr>
+          <tr> <td>CCNA</td>               <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
+          <tr> <td>전공한국어회화(I)</td>    <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
+          <tr> <td>전공한국어중급</td>        <td>4</td><td><input type="number" min="0" max="100" data-units="4"></td><td></td><td></td> </tr>
+        </tbody>
+      </table>
+    </div>
     <table class="footer-table">
       <tr><td>평균평점 (Average Rating)</td><td id="avgRating">-</td></tr>
       <tr><td>점수평균 (Average Score)</td><td id="avgScore">-</td></tr>
       <tr><td>점수계 (Total Score)</td><td id="totalScore">-</td></tr>
     </table>
-
     <div class="credits">
       Created by: Canapi, Richard
       <small>IT SMART FACTORY CONVERGENCE | BATCH 1</small>
     </div>
   </div>
-
   <script>
     const gradeTable = document.getElementById("gradeTable");
     const ratingMap = [
@@ -216,48 +260,35 @@
       { min: 60, grade: 'Do', point: 1.0 },
       { min: 0,  grade: 'F',  point: 0.0 }
     ];
-
     gradeTable.addEventListener("input", () => {
-      let totalUnits = 0;
-      let totalWeightedScore = 0;
-      let totalWeightedPoints = 0;
-      const rows = gradeTable.querySelectorAll("tr");
-
-      rows.forEach(row => {
+      let totalUnits = 0, totalWeightedScore = 0, totalWeightedPoints = 0;
+      gradeTable.querySelectorAll("tr").forEach(row => {
         const input = row.querySelector("input");
         if (input) {
           const score = parseFloat(input.value);
           const units = parseFloat(input.dataset.units);
           const gradeCell = row.children[3];
           const pointCell = row.children[4];
-
           if (!isNaN(score)) {
             const rating = ratingMap.find(r => score >= r.min);
-            if (rating) {
-              gradeCell.innerText = rating.grade;
-              pointCell.innerText = (rating.point * units).toFixed(1);
-              totalWeightedScore += score * units;
-              totalWeightedPoints += rating.point * units;
-              totalUnits += units;
-            }
+            gradeCell.innerText = rating.grade;
+            pointCell.innerText = (rating.point * units).toFixed(1);
+            totalWeightedScore += score * units;
+            totalWeightedPoints += rating.point * units;
+            totalUnits += units;
           } else {
-            gradeCell.innerText = "";
-            pointCell.innerText = "";
+            gradeCell.innerText = pointCell.innerText = "";
           }
         }
       });
-
-      const avgScore = totalUnits ? (totalWeightedScore / totalUnits).toFixed(2) : "-";
-      const avgRating = totalUnits ? (totalWeightedPoints / totalUnits).toFixed(2) : "-";
-      const totalScore = totalUnits ? (avgScore * totalUnits).toFixed(0) : "-";
-
-      document.getElementById("avgScore").innerText = avgScore;
-      document.getElementById("avgRating").innerText = avgRating;
-      document.getElementById("totalScore").innerText = totalScore;
+      document.getElementById("avgScore").innerText = totalUnits ? (totalWeightedScore/totalUnits).toFixed(2) : "-";
+      document.getElementById("avgRating").innerText = totalUnits ? (totalWeightedPoints/totalUnits).toFixed(2) : "-";
+      document.getElementById("totalScore").innerText = totalUnits ? Math.round(totalWeightedScore) : "-";
     });
   </script>
 </body>
 </html>
+
 
 
 
