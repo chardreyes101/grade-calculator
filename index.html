@@ -21,31 +21,33 @@
       color: #333;
     }
 
-    html::before {
-      content: "";
-      background: url('assets/SchoolLogo.png') no-repeat center center;
-      background-size: 400px;
-      opacity: 0.1;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 400px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 800px;
       margin: auto;
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      position: relative;
-      z-index: 1;
     }
+
+    /* watermark inside the white container */
+    .container::before {
+      content: "";
+      background: url('assets/SchoolLogo.png') no-repeat center center;
+      background-size: 300px;
+      opacity: 0.05;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .header {
       text-align: center;
       margin-bottom: 20px;
@@ -59,6 +61,7 @@
       margin-top: 0;
       font-weight: bold;
     }
+
     .dropdown {
       margin: 20px 0;
       text-align: center;
@@ -75,6 +78,7 @@
       font-weight: bold;
       text-align-last: center;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -90,6 +94,7 @@
       color: white;
       font-weight: bold;
     }
+
     input[type="number"] {
       width: 60px;
       text-align: center;
@@ -97,6 +102,7 @@
       border: 1px solid #aaa;
       border-radius: 4px;
     }
+
     .footer-table {
       width: 100%;
       margin: 20px 0;
@@ -109,6 +115,7 @@
       text-align: center;
       padding: 12px;
     }
+
     .credits {
       text-align: center;
       padding: 10px;
@@ -251,6 +258,7 @@
   </script>
 </body>
 </html>
+
 
 
 
