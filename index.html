@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Grade Report</title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWDQF9C5D6"></script>
@@ -24,14 +24,16 @@
     body::before {
       content: "";
       background: url('assets/SchoolLogo.png') no-repeat center center;
-      background-size: 300px;
-      opacity: 0.06;
+      background-size: 400px;
+      opacity: 0.1;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .container {
@@ -41,6 +43,8 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
+      position: relative;
+      z-index: 1;
     }
     .header {
       text-align: center;
@@ -247,6 +251,7 @@
   </script>
 </body>
 </html>
+
 
 
 
